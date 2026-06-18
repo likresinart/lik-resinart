@@ -1,31 +1,288 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>LIK RESIN ART</title>
 
-<script>
-function goToPage() {
-    window.location.href = "products.html";
-}
-</script>
-
 <style>
-body{
-    margin:0;
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, sans-serif;
 }
-video{
-    width:100%;
-    height:100vh;
-    object-fit:cover;
+
+body{
+background:#f8f8f8;
+}
+
+/* VIDEO PAGE */
+
+#videoPage{
+width:100%;
+height:100vh;
+overflow:hidden;
+position:relative;
+background:black;
+}
+
+#desktopVideo,
+#mobileVideo{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+#mobileVideo{
+display:none;
+}
+
+.logo-overlay{
+position:absolute;
+bottom:20px;
+left:50%;
+transform:translateX(-50%);
+text-align:center;
+color:white;
+}
+
+.logo-overlay img{
+width:150px;
+}
+
+.logo-overlay h2{
+margin-top:10px;
+}
+
+/* PRODUCT PAGE */
+
+#productPage{
+display:none;
+padding:20px;
+}
+
+.header{
+text-align:center;
+margin-bottom:20px;
+}
+
+.header img{
+width:180px;
+}
+
+.products{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+}
+
+.card{
+background:white;
+padding:15px;
+border-radius:12px;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+text-align:center;
+}
+
+.card img{
+width:100%;
+height:220px;
+object-fit:cover;
+border-radius:10px;
+}
+
+.card h3{
+margin:10px 0;
+}
+
+.price{
+color:#0E6B73;
+font-size:20px;
+font-weight:bold;
+}
+
+.qty{
+width:70px;
+padding:5px;
+margin-top:10px;
+}
+
+.form-section{
+background:white;
+padding:20px;
+margin-top:30px;
+border-radius:12px;
+}
+
+input{
+width:100%;
+padding:10px;
+margin:10px 0;
+}
+
+button{
+background:#0E6B73;
+color:white;
+border:none;
+padding:12px;
+width:100%;
+font-size:16px;
+cursor:pointer;
+border-radius:8px;
+}
+
+button:hover{
+background:#084b50;
+}
+
+@media(max-width:768px){
+#desktopVideo{
+display:none;
+}
+
+#mobileVideo{
+display:block;
+}
 }
 </style>
-
 </head>
+
 <body>
 
-<video autoplay muted playsinline onended="goToPage()">
-    <source src="welcome-video.mp4" type="video/mp4">
+<!-- VIDEO PAGE -->
+
+<section id="videoPage">
+
+<video id="desktopVideo" autoplay muted playsinline>
+<source src="desktop-video.mp4" type="video/mp4">
 </video>
+
+<video id="mobileVideo" autoplay muted playsinline>
+<source src="mobile-video.mp4" type="video/mp4">
+</video>
+
+<div class="logo-overlay">
+<img src="logo.png">
+<h2>LIK RESIN ART</h2>
+<p>Art You'll Like!</p>
+</div>
+
+</section>
+
+<!-- PRODUCT PAGE -->
+
+<section id="productPage">
+
+<div class="header">
+<img src="logo.png">
+<h2>LIK RESIN ART</h2>
+<p>Art You'll Like!</p>
+</div>
+
+<div class="products">
+
+<div class="card">
+<img src="images/alphabet-keychain.jpg">
+<h3>Alphabet Keychain</h3>
+<p class="price">₹80</p>
+<input type="number" id="qty1" class="qty" min="0" value="0">
+</div>
+
+<div class="card">
+<img src="images/photo-keychain.jpg">
+<h3>Photo Keychain</h3>
+<p class="price">₹120</p>
+<input type="number" id="qty2" class="qty" min="0" value="0">
+</div>
+
+<div class="card">
+<img src="images/dashboard-frame.jpg">
+<h3>Dashboard Mantra Frame</h3>
+<p class="price">₹150</p>
+<input type="number" id="qty3" class="qty" min="0" value="0">
+</div>
+
+<div class="card">
+<img src="images/wall-clock.jpg">
+<h3>Wall Clock</h3>
+<p class="price">₹600</p>
+<input type="number" id="qty4" class="qty" min="0" value="0">
+</div>
+
+<div class="card">
+<img src="images/trinket-box.jpg">
+<h3>Trinket Box</h3>
+<p class="price">₹300</p>
+<input type="number" id="qty5" class="qty" min="0" value="0">
+</div>
+
+</div>
+
+<div class="form-section">
+
+<h2>Customer Details</h2>
+
+<input type="text" id="name" placeholder="Customer Name">
+
+<input type="tel" id="phone" placeholder="Mobile Number">
+
+<button onclick="sendOrder()">
+Place Order on WhatsApp
+</button>
+
+</div>
+
+</section>
+
+<script>
+
+// AUTO REDIRECT AFTER VIDEO
+
+setTimeout(() => {
+document.getElementById("videoPage").style.display="none";
+document.getElementById("productPage").style.display="block";
+},10000);
+
+// WHATSAPP ORDER
+
+function sendOrder(){
+
+let name=document.getElementById("name").value;
+let phone=document.getElementById("phone").value;
+
+let products=[];
+
+if(qty1.value>0)
+products.push("Alphabet Keychain x "+qty1.value);
+
+if(qty2.value>0)
+products.push("Photo Keychain x "+qty2.value);
+
+if(qty3.value>0)
+products.push("Dashboard Mantra Frame x "+qty3.value);
+
+if(qty4.value>0)
+products.push("Wall Clock x "+qty4.value);
+
+if(qty5.value>0)
+products.push("Trinket Box x "+qty5.value);
+
+let message=
+"New Order - LIK RESIN ART%0A%0A"+
+"Customer Name: "+name+"%0A"+
+"Mobile: "+phone+"%0A%0A"+
+"Products:%0A"+
+products.join("%0A");
+
+window.open(
+"https://wa.me/919042460692?text="+message,
+"_blank"
+);
+
+}
+</script>
 
 </body>
 </html>
